@@ -6,7 +6,7 @@ from utils import int_to_four, four_to_dna
 import random
 import struct
 import numpy as np
-from sets import Set
+#from sets import Set
 
 class Droplet:
     def __init__(self, data, seed, num_chunks = None, rs = 0, rs_obj = None, degree = None):
@@ -15,7 +15,7 @@ class Droplet:
 
         self.data = data
         self.seed = seed
-        self.num_chunks = Set(num_chunks)
+        self.num_chunks = set(num_chunks)
         self.rs = rs
         self.rs_obj = rs_obj
         self.degree = degree
