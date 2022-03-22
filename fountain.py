@@ -74,7 +74,7 @@ class DNAFountain:
     def calc_oligo_length(self):
         #return the number of nucleotides in an oligo:
         bits = self.chunk_size * 8 + self.lfsr_l + self.rs * 8
-        return bits/4
+        return bits//4
 
 
     def calc_stop(self):

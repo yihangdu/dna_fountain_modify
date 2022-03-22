@@ -24,13 +24,13 @@ def read_file(file_in, size):
         logging.error("%s file not found", file_in)
         sys.exit(0)
 
-    data = f.read()    
+    data = f.read()
     original_size = os.path.getsize(file_in)
     logging.debug("Input file has %d bytes", original_size)
     
     pad = -len(data) % chunk_size
     if pad > 0:
-        logging.debug("Padded the file with %d zero to have a round number of blocks of data", pad)    
+        logging.debug("Padded the file with %d zero to have a round number of blocks of data", pad)
     data += b'\0' * pad  #zero padding.
     size = len(data)
     logging.info("File MD5 is %s", hashlib.md5(data).hexdigest())
@@ -38,7 +38,7 @@ def read_file(file_in, size):
 
     data_array = [None] * (size//chunk_size)
 
-    logging.info("There are %d input segments", size/chunk_size)    
+    logging.info("There are %d input segments", size//chunk_size)
 
     for num in range(size//chunk_size):
         start = chunk_size * num
@@ -70,12 +70,12 @@ def read_file_np(file_in, size):
     pad = -len(data) % chunk_size
     if pad > 0:
         logging.debug("Padded the file with %d zero to have a round number of blocks of data", pad)    
-    data += "\0" * pad #zero padding.
+    data += b"\0" * pad #zero padding.
     size = len(data)
-    logging.info("There are %d input segments", size/chunk_size)
+    logging.info("There are %d input segments", size//chunk_size)
 
 
     data_array = np.fromstring(data, dtype =np.uint8)
-    data_array.shape = (size/chunk_size, chunk_size)
+    data_array.shape = (size//chunk_size, chunk_size)
     
     return (data_array, len(data)) 
