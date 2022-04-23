@@ -32,7 +32,7 @@ class Screen:
 			max_alphabet = 4
 
 		patterns = [None] * max_alphabet
-		for t in xrange(max_alphabet):
+		for t in range(max_alphabet):
 			patterns[t] = str(t) * (self.max_homopolymer + 1)
 			#e.g. pattern is ["0000", "1111", "2222", "3333"]
 			#for max_alphabet = 4, and max_homopolymer = 3.
@@ -110,12 +110,12 @@ def expandable_alphabet(array_of_bytes, l, n_symbols,  n_bytes = 8, alphabet_siz
 	concatanted chunks (strings) of n_symbols using alphabet_size letters. alphabet_size must be <=10"""
 
 	res = ''
-	for i in xrange(0,l, n_bytes):
+	for i in range(0,l, n_bytes):
 		slice_array = array_of_bytes[i:i+n_bytes]
 		
-		number_int = long(0)
+		number_int = int(0)
 		for pos,val in enumerate(slice_array):
-			number_int += long(val) * 256**(n_bytes-(pos+1)) #little endian
+			number_int += int(val) * 256**(n_bytes-(pos+1)) #little endian
 		
 		
 
@@ -128,7 +128,7 @@ def expandable_alphabet(array_of_bytes, l, n_symbols,  n_bytes = 8, alphabet_siz
 
 def screen_repeats_x(dna, homo_length, alphabet_size):
 
-	for t in xrange(alphabet_size):
+	for t in range(alphabet_size):
 		homo = str(t) * (homo_length + 1)
 
 		if homo in dna:
@@ -170,12 +170,12 @@ def _toDigits_array(n, b, width):
 def dexpandable_alphabet(dna, l, n_symbols, n_bytes, alphabet_size = 6):
 	
 	res = list()
-	for i in xrange(0,l, n_symbols):
+	for i in range(0,l, n_symbols):
 		slice_array = dna[i:i+n_symbols]
 		
-		number_int = long(0)
+		number_int = int(0)
 		for pos,val in enumerate(slice_array):
-			number_int += long(val) * 6**(n_symbols-(pos+1)) #little endian
+			number_int += int(val) * 6**(n_symbols-(pos+1)) #little endian
 		
 
 		res += _toDigits_array(n = number_int, b = 256, width = n_bytes)
@@ -189,14 +189,14 @@ def test(size, n_symbols, n_bytes):
 
 	
 	array_of_bytes = list(np.random.randint(0, 255, size = size))
-	print array_of_bytes
+	print(array_of_bytes)
 	ex = expandable_alphabet(array_of_bytes, size, n_symbols, n_bytes, alphabet_size = 6)
 	o = dexpandable_alphabet(ex, len(ex), n_symbols, n_bytes)
-	print o
+	print(o)
 	if len(set(o)-set(array_of_bytes)):
-		print "Error"
+		print("Error")
 	else:
-		print "All good"
+		print("All good")
 
 
 #test(21,65,21)

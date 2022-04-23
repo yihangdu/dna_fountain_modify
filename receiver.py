@@ -12,7 +12,7 @@ import json
 from glass import Glass
 from collections import defaultdict
 from utils import dna_to_byte, split_header 
-import md5
+import hashlib
 from preprocessing import read_file
 from aggressive import Aggressive
 from shutil import copyfile
@@ -200,10 +200,10 @@ def main():
 
 	outstring = g.getString()
 	f = open(args.out, 'wb')
-	f.write(outstring)
+	f.write(str.encode(outstring))
 	f.close()
 
-	logging.info("MD5 is %s", md5.new(outstring).hexdigest())
+	logging.info("MD5 is %s", hashlib.md5(str.encode(outstring)).hexdigest())
 
 	json.dump(seen_seeds, open("seen_barocdes.json",'w'), sort_keys = True, indent = 4)
 

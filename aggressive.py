@@ -10,11 +10,11 @@ from robust_solition import PRNG
 import numpy as np
 import operator
 import sys
-from sets import Set
+#from sets import Set
 from collections import defaultdict
-import cPickle as pickle
+import pickle
 from random import shuffle
-import md5
+import hashlib
 import logging
 import Colorer
 
@@ -52,7 +52,7 @@ class Aggressive:
 
     def loop(self):
         random.seed(1)
-        for i in xrange(self.times):
+        for i in range(self.times):
 
             logging.debug("Try %d out of %d", i+1, self.times)
             g = self.load_glass(self.glass_file)
@@ -93,7 +93,7 @@ class Aggressive:
         logging.debug("Results of decoding are at %s", outname)
         o.close()
         
-        md5_str = md5.new(outstring).hexdigest()
+        md5_str = hashlib.md5(outstring).hexdigest()
         logging.debug("Results of decoding are at %s with MD5: %s", outname, md5_str)
         self.md5_dict[md5_str].append(outname)
         return 1
